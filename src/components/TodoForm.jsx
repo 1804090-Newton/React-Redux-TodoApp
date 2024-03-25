@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React, { useEffect, useState } from "react";
 import {
   Button,
   TextField,
@@ -8,13 +8,25 @@ import {
   DialogTitle,
 } from "@material-ui/core";
 
-const TodoForm = ({ onSaveTodo }) => {
+const TodoForm = ({ onSaveTodo, editedTodo }) => {
   const [open, setOpen] = useState(false);
   const [todo, setTodo] = useState({
     title: "",
     description: "",
     id: Date.now(),
   });
+
+  useEffect(()=>{
+    if(editedTodo){
+      setTodo({
+        title:editedTodo.title,
+        description:editedTodo.description,
+        id:editedTodo.id
+      });
+      setOpen(true);
+    }
+
+  }, [editedTodo])
 
   const handleClickOpen = () => {
     setOpen(true);
@@ -46,7 +58,7 @@ const TodoForm = ({ onSaveTodo }) => {
         onClose={handleClose}
         aria-labelledby="form-dialog-title"
       >
-        <DialogTitle id="form-dialog-title">New Todo</DialogTitle>
+        <DialogTitle id="form-dialog-title">{ editedTodo ? 'Edit Todo':'New Todo'}</DialogTitle>
         <DialogContent>
           <TextField
             autoFocus
