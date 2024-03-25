@@ -26,13 +26,17 @@ function App() {
     dispatch(deleteTodo(id));
   };
 
+  const handleEditTodo=(todo)=>{
+    setEditedTodo(todo);
+  }
+
   return (
     <Container maxWidth="lg">
       <Typography variant="h3" align="center" gutterBottom>
         Todo App
       </Typography>
       <TodoForm onSaveTodo={handleAddorEditTodo}  editedTodo={editedTodo}/>
-      <TodoList todos={todos} onDeleteTodo={handleDeleteTodo} />
+      <TodoList todos={todos} onDeleteTodo={handleDeleteTodo} onEditTodo={handleEditTodo} />
     </Container>
   );
 }

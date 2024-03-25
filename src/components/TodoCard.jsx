@@ -8,8 +8,10 @@ import {
   makeStyles,
 } from "@material-ui/core";
 import DeleteIcon from "@material-ui/icons/Delete";
+import EditIcon from "@material-ui/icons/Edit";
 import ExpandLessIcon from "@material-ui/icons/ExpandLess";
 import ExpandMoreIcon from "@material-ui/icons/ExpandMore";
+
 import Proptypes from "prop-types";
 
 const useStyles = makeStyles((theme) => ({
@@ -28,7 +30,7 @@ const useStyles = makeStyles((theme) => ({
   },
 }));
 
-const TodoCard = ({ todo, onDeleteTodo }) => {
+const TodoCard = ({ todo, onDeleteTodo, onEditTodo }) => {
   const [showFullDescription, setShowFullDescription] = useState(false);
   const classes = useStyles();
 
@@ -66,6 +68,14 @@ const TodoCard = ({ todo, onDeleteTodo }) => {
         >
           <DeleteIcon />
         </IconButton>
+
+          <IconButton
+            edge="end"
+            aria-label="edit"
+            onClick={() => onEditTodo(todo)}
+          >
+            <EditIcon />
+        </IconButton>
       </CardContent>
     </Card>
   );
@@ -74,6 +84,7 @@ const TodoCard = ({ todo, onDeleteTodo }) => {
 TodoCard.propTypes = {
   todo: Proptypes.object,
   onDeleteTodo: Proptypes.func,
+  onEditTodo: Proptypes.func,
 };
 
 export default TodoCard;
